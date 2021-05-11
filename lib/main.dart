@@ -56,10 +56,10 @@ class _TopBannerPageState extends State<TopBannerPage> {
         children: <Widget>[
           _images(),
           Positioned(
-            left: size.width / 2 - _itemCount * 5,
+            left: size.width / 2 - _itemCount * 7,
 //            left: 100,
-            right: size.width / 2 - _itemCount * 5,
-            bottom: 90,
+            right: size.width / 2 - _itemCount * 7,
+            bottom: 50,
             height: size.width / _itemCount / 2,
             child: CustomPaint(
               painter: _littleDotsPainter,
@@ -95,21 +95,22 @@ class LittleDotsPainter extends CustomPainter {
     // TODO: implement paint
     for (int i = 0; i < numOfDots; i++) {
       canvas.drawCircle(
-          Offset(size.width / numOfDots * i*1.5 + (size.width / numOfDots / 2), 0),
+          Offset(size.width / numOfDots * i + (size.width / numOfDots / 2), 0),
 //          Offset((i*15*3).toDouble(), 0),
 //          10,
-          size.width / _itemCount / 3, //반지름
+          size.width / _itemCount / 4, //반지름
           Paint()
-            ..color = Colors.red
+            ..color = Colors.white54
             ..strokeWidth = 2
             ..style = PaintingStyle.stroke);
     }
-    print('width: ${size.width}, numOfDots: $numOfDots');
+//    print('width: ${size.width}, numOfDots: $numOfDots');
     canvas.drawCircle(
-        Offset(size.width / numOfDots * page*1.5 + (size.width / numOfDots / 2), 0),
+        Offset(size.width / numOfDots * page + (size.width / numOfDots / 2), 0),
         size.width / _itemCount / 3,
         Paint()
-          ..color = Colors.greenAccent);
+          ..color = Colors.black87
+    );
   }
 
   @override
@@ -118,4 +119,24 @@ class LittleDotsPainter extends CustomPainter {
 //    throw UnimplementedError();
     return (oldDelegate as LittleDotsPainter).page != page;
   }
+}
+
+
+List<Widget> makeIndicator(List list, int _currentPage) {
+  List<Widget> results = [];
+  for (var i = 0; i < list.length; i++){
+    results.add(Container(
+      width: 8,
+      height: 8,
+      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: _currentPage == i
+            ? Color.fromRGBO(255, 255, 255, 0.9)
+            : Color.fromRGBO(255, 255, 255, 0.4),
+      ),
+    ),);
+  }
+
+  return results;
 }
